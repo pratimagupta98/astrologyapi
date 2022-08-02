@@ -44,7 +44,7 @@ const User = require("../models/users");
 //     //   };
     
 // }
-
+//////////////
     
     exports.signupsendotp = async (req, res) => {
             let length = 6;
