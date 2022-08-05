@@ -1,16 +1,20 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+
 const thisSchema = new Schema(
   {
-
-    fullname: {
+   adminimg: {
+      type: Array,
+     
+    },
+    name: {
       type: String,
     },
     email: {
       type: String,
     },
     mobile: {
-      type: Number
+      type: Number,
     },
     password: {
       type: String,
@@ -18,17 +22,10 @@ const thisSchema = new Schema(
     cnfmPassword: {
       type: String,
     },
-    userimg: {
-      type: String,
-    },
-         otp: { type: String },
-
+   
+ 
   },
-
-
-
   { timestamps: true }
 );
 
-
-module.exports = mongoose.model("user", thisSchema);
+module.exports = mongoose.model("admin", thisSchema);

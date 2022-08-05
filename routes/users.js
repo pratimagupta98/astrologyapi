@@ -4,8 +4,8 @@ const router = express.Router();
 const fs = require("fs");
 
 const {
-    signupsendotp,
-  
+    usersignup,
+    userlogin
    
 } = require("../controller/users");
 
@@ -14,7 +14,8 @@ const {
  
  
  
-//router.post("/user/setting", tokenverify, setting);
-router.post("/user/signupsendotp", signupsendotp);
+ router.post("/user/usersignup", usersignup);
+ router.post("/user/userlogin", userlogin);
+
  
 module.exports = router;
