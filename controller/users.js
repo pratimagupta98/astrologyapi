@@ -5,6 +5,7 @@ const bcrypt = require("bcrypt");
 const saltRounds = 10;
 const key = "verysecretkey";
 
+//console
 exports.usersignup = async (req, res) => {
   const {fullname,email,mobile,password,cnfmPassword} = req.body
 
