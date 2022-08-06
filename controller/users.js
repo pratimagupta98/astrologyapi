@@ -1,49 +1,66 @@
 const User = require("../models/users");
 const resp = require("../helpers/apiResponse");
+//const bcrypt = require("bcryptjs");
+const cloudinary = require("cloudinary").v2;
+const dotenv = require("dotenv");
+const fs = require("fs");
+
 const jwt = require("jsonwebtoken");
-const bcrypt = require("bcrypt");
-const saltRounds = 10;
 const key = "verysecretkey";
+const bcrypt = require("bcrypt");
+dotenv.config();
+cloudinary.config({
+  cloud_name: process.env.CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
 
-//console
-exports.usersignup = async (req, res) => {
-  const {fullname,email,mobile,password,cnfmPassword} = req.body
-
-  const salt = bcrypt.genSaltSync(saltRounds);
-  const hashpassword = bcrypt.hashSync(password, salt);
-
-  const newUser  = new User({
-    fullname:fullname,
-    email:email,
-    mobile:mobile,
-    password:hashpassword,
-    cnfmPassword:hashpassword
-  })
  
-  const findexist = await User.findOne({ mobile: req.body.mobile})
-  if (findexist) {
-    resp.alreadyr(res);
-  }else{
-    newUser
-      .save()
-      .then(
-        res.status(200).json({
-          status: true,
-          msg: "success",
-          data: newUser,
-        })
-      )
-      .catch((error) => {
-        res.status(400).json({
-          status: false,
-          msg: "error",
-          error: error,
-        });
-      });
+  
+  exports.usersignup = async (req, res) => {
+    const { fullname, userimg, email, mobile, password, cnfmPassword } =
+      req.body;
+  
+    const salt = await bcrypt.genSalt(10);
+    const hashPassword = await bcrypt.hash(password, salt);
+  
+    
+    const newUser = new User({
+      fullname: fullname,
+      password: hashPassword,
+      cnfmPassword: hashPassword,
+      email: email,
+      mobile: mobile,
+      userimg: userimg,
+    });
+  
+    const findexist = await User.findOne({
+      $or: [{ email: email }, { mobile: mobile }],
+    });
+    if (findexist) {
+      resp.alreadyr(res);
+    } else {
+      if (req.files) {
+        if (req.files.userimg[0].path) {
+          alluploads = [];
+          for (let i = 0; i < req.files.userimg.length; i++) {
+            const resp = await cloudinary.uploader.upload(
+              req.files.userimg[i].path,
+              { use_filename: true, unique_filename: false }
+            );
+            fs.unlinkSync(req.files.userimg[i].path);
+            alluploads.push(resp.secure_url);
+          }
+          newUser.userimg = alluploads;
+        }
+      }
+      newUser.save()
+  
+  
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
   }
-
-  }
-
 
 
   exports.userlogin = async(req,res)=>{

@@ -60,6 +60,6 @@ router.post("/admin/adminlogin", adminlogin);
  router.get("/admin/viewoneadmin/:id", viewoneadmin);
 router.post("/admin/editprofile/:id",multipleUpload, editprofile);
 
- 
+
  module.exports = router;
  

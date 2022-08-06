@@ -19,7 +19,7 @@ const thisSchema = new Schema(
       type: String,
     },
     userimg: {
-      type: String,
+      type: Array,
     },
          otp: { type: String },
 
