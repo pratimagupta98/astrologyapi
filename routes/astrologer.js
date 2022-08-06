@@ -4,6 +4,7 @@ const router = express.Router();
 const fs = require("fs");
 
 const {
+  signup,
     astrosignup,
     verifyotp,
     astrologin,
@@ -54,8 +55,10 @@ const storage = multer.diskStorage({
     //   { name: "address_proof_img", maxCount: 5 },
   ]);
  
- 
- 
+  signup
+  router.post("/user/signup",signup);
+  router.post("/user/verifyotp",verifyotp);
+
   router.post("/user/astrosignup", multipleUpload,astrosignup);
   router.post("/user/astrologin",astrologin);
   router.get("/user/viewoneAstro/:id",viewoneAstro);

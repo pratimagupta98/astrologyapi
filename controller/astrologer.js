@@ -260,7 +260,8 @@ exports.verifyotp = async (req, res) => {
       res.header("auth-adtoken", token).status(200).send({
         status: true,
         msg: "otp verified",
-        otp: otp
+        otp: otp,
+        _id: getuser._id
 
       });
     } else {
