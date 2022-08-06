@@ -5,7 +5,13 @@ const fs = require("fs");
 
 const {
     astrosignup,
-    verifyotp
+    verifyotp,
+    astrologin,
+    viewoneAstro,
+    allAstro,
+    editAstroDetails,
+    dltAstro
+     
    
 } = require("../controller/astrologer");
 
@@ -51,7 +57,12 @@ const storage = multer.diskStorage({
  
  
   router.post("/user/astrosignup", multipleUpload,astrosignup);
-//  router.post("/user/verifyotp", verifyotp);
+  router.post("/user/astrologin",astrologin);
+  router.get("/user/viewoneAstro/:id",viewoneAstro);
+  router.post("/user/editAstroDetails/:id",multipleUpload,editAstroDetails);
 
- 
+ router.get("/admin/allAstro", allAstro);
+ router.get("/admin/dltAstro/:id", dltAstro);
+
+  
 module.exports = router;
