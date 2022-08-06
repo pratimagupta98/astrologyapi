@@ -8,7 +8,9 @@ const {
     usersignup,
     userlogin,
     myprofile,
-    viewoneuser
+    viewoneuser,
+    alluser,
+    dltuser
    
 } = require("../controller/users");
 
@@ -59,5 +61,7 @@ const storage = multer.diskStorage({
 
  router.post("/user/myprofile/:id",multipleUpload, myprofile);
  router.get("/user/viewoneuser/:id", viewoneuser);
+ router.get("/admin/alluser", alluser);
+ router.get("/admin/dltuser/:id", dltuser);
 
 module.exports = router;

@@ -161,3 +161,17 @@ cloudinary.config({
         .then((data) => resp.successr(res, data))
         .catch((error) => resp.errorr(res, error));
     };
+
+
+    exports.alluser= async (req, res) => {
+      await User.find()
+        .sort({ sortorder: 1 })
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
+  
+    exports.dltuser = async (req, res) => {
+      await User.deleteOne({ _id: req.params.id })
+        .then((data) => resp.deleter(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
