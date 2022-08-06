@@ -1,4 +1,4 @@
-const Banner = require("../models/banner");
+const Blog = require("../models/blogs");
 const resp = require("../helpers/apiResponse");
 
 const fs = require("fs");
@@ -16,38 +16,38 @@ cloudinary.config({
 });
 
 
-exports.addbanner = async (req, res) => {
+exports.addBlog = async (req, res) => {
   //console.log(req.body);
-  const { banner_title, banner_img, status } = req.body;
+  const { blog_title, blogImg, desc } = req.body;
 
-  const newBanner = new Banner({
-    banner_title: banner_title,
-    banner_img: banner_img,
-     status: status,
+  const newBlog = new Blog({
+    blog_title: blog_title,
+    blogImg: blogImg,
+    desc: desc,
   });
 
   
-    const findexist = await Banner.findOne({
-      banner_title: banner_title,
+    const findexist = await Blog.findOne({
+        blog_title: blog_title,
     });
     if (findexist) {
         resp.alreadyr(res);
     } else {
         if (req.files) {
-            if (req.files.banner_img[0].path) {
+            if (req.files.blogImg[0].path) {
               alluploads = [];
-              for (let i = 0; i < req.files.banner_img.length; i++) {
+              for (let i = 0; i < req.files.blogImg.length; i++) {
                 const resp = await cloudinary.uploader.upload(
-                  req.files.banner_img[i].path,
+                  req.files.blogImg[i].path,
                   { use_filename: true, unique_filename: false }
                 );
-                fs.unlinkSync(req.files.banner_img[i].path);
+                fs.unlinkSync(req.files.blogImg[i].path);
                 alluploads.push(resp.secure_url);
               }
-              newBanner.banner_img = alluploads;
+              newBlog.blogImg = alluploads;
             }
           }
-          newBanner.save()
+          newBlog.save()
       
       
             .then((data) => resp.successr(res, data))
@@ -55,77 +55,57 @@ exports.addbanner = async (req, res) => {
         };
 };
 
-exports.getbanner = async (req, res) => {
-await Banner.find() 
+exports.getBlog = async (req, res) => {
+await Blog.find() 
 .sort({ sortorder: 1 })
 .then((data) => resp.successr(res, data))
 .catch((error) => resp.errorr(res, error));
 };
 
-exports.viewonebanner = async (req, res) => {
-await Banner.findOne({ _id: req.params.id })
+exports.viewoneBlog = async (req, res) => {
+await Blog.findOne({ _id: req.params.id })
 .then((data) => resp.successr(res, data))
 .catch((error) => resp.errorr(res, error));
 };
 
- 
-
-exports.delbanner = async (req, res) => {
-    await Banner.deleteOne({ _id: req.params.id })
+exports.delBlog = async (req, res) => {
+    await Blog.deleteOne({ _id: req.params.id })
       .then((data) => resp.deleter(res, data))
       .catch((error) => resp.errorr(res, error));
   };
 
-exports.getbannerbytype = async (req, res) => {
-  const findall = await Banner.find({ bannertype: req.params.id }).sort({
-    sortorder: 1,
-  });
-  if (findall) {
-    res.status(200).json({
-      status: true,
-      msg: "success",
-      data: findall,
-    });
-  } else {
-    res.status(400).json({
-      status: false,
-      msg: "error",
-      error: "error",
-    });
-  }
-};
-
+ 
 
 
  
-exports.editBanner = async(req,res)=>{
-    const{banner_title,banner_img,status} = req.body
+exports.editBlog = async(req,res)=>{
+    const{blog_title,blogImg,desc} = req.body
     
     data ={}
-    if(banner_title) {
-        data.banner_title = banner_title
+    if(blog_title) {
+        data.blog_title = blog_title
     }
-    if(status){
-        data.status = status
+    if(desc){
+        data.desc = desc
     }
   
     if (req.files) {
-        if (req.files.banner_img) {
+        if (req.files.blogImg) {
           alluploads = [];
-          for (let i = 0; i < req.files.banner_img.length; i++) {
+          for (let i = 0; i < req.files.blogImg.length; i++) {
             // console.log(i);
-            const resp = await cloudinary.uploader.upload(req.files.banner_img[i].path, {
+            const resp = await cloudinary.uploader.upload(req.files.blogImg[i].path, {
               use_filename: true,
               unique_filename: false,
             });
-            fs.unlinkSync(req.files.banner_img[i].path);
+            fs.unlinkSync(req.files.blogImg[i].path);
             alluploads.push(resp.secure_url);
           }
           // newStore.storeImg = alluploads;
-          data.banner_img = alluploads;
+          data.blogImg = alluploads;
         }
      }
-     await Banner.findOneAndUpdate(
+     await Blog.findOneAndUpdate(
         { _id: req.params.id},
         { $set: data },
         { new: true }

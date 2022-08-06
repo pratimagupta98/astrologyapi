@@ -20,6 +20,7 @@ const terms_condition = require("./routes/terms_condition")
 const contact_us = require("./routes/contact_us")
 const banner = require("./routes/banner")
 const faq = require("./routes/faq")
+const blogs = require("./routes/blogs")
 
 
 
@@ -34,6 +35,7 @@ app.use("/", terms_condition);
 app.use("/", contact_us);
 app.use("/", banner);
 app.use("/", faq);
+app.use("/", blogs);
 
 
 
