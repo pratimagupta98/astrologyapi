@@ -104,5 +104,60 @@ cloudinary.config({
       });
     }
   };
+
+  exports.myprofile = async(req,res)=>{
+    const{fullname,userimg,email,mobile,password,cnfmPassword} = req.body
+    
+    data ={}
+    if(fullname) {
+        data.fullname = fullname
+    }
+    
+    if(email){
+        data.email = email
+    }
+    if(mobile){
+        data.mobile = mobile
+    }
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      let hashPassword = await bcrypt.hash(password, salt);
+      data.password = hashPassword;
+    }
+    if (cnfmPassword) {
+      const salt = await bcrypt.genSalt(10);
+      let hashPassword = await bcrypt.hash(password, salt);
+      data.cnfmPassword = hashPassword;
+    }
+
+    if (req.files) {
+        if (req.files.userimg) {
+          alluploads = [];
+          for (let i = 0; i < req.files.userimg.length; i++) {
+            // console.log(i);
+            const resp = await cloudinary.uploader.upload(req.files.userimg[i].path, {
+              use_filename: true,
+              unique_filename: false,
+            });
+            fs.unlinkSync(req.files.userimg[i].path);
+            alluploads.push(resp.secure_url);
+          }
+          // newStore.storeImg = alluploads;
+          data.userimg = alluploads;
+        }
+     }
+     await User.findOneAndUpdate(
+        { _id: req.params.id},
+        { $set: data },
+        { new: true }
+      )
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };
+    
      
- 
+    exports.viewoneuser = async (req, res) => {
+      await User.findOne({ _id: req.params.id })
+        .then((data) => resp.successr(res, data))
+        .catch((error) => resp.errorr(res, error));
+    };

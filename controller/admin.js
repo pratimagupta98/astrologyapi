@@ -122,11 +122,15 @@ exports.viewoneadmin = async (req, res) => {
     if(mobile){
         data.mobile = mobile
     }
-    if(password){
-        data.password = password
+    if (password) {
+      const salt = await bcrypt.genSalt(10);
+      let hashPassword = await bcrypt.hash(password, salt);
+      data.password = hashPassword;
     }
-    if(cnfmPassword){
-        data.cnfmPassword =cnfmPassword
+    if (cnfmPassword) {
+      const salt = await bcrypt.genSalt(10);
+      let hashPassword = await bcrypt.hash(password, salt);
+      data.cnfmPassword = hashPassword;
     }
 
     if (req.files) {
