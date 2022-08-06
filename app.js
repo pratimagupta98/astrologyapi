@@ -14,7 +14,7 @@ app.use(cors());
  
 //const users = require("./routes/users")
 //const astrologer = require("./routes/astrologer")
-const admin = require("./routes/admin")
+//const admin = require("./routes/admin")
 const aboutus = require("./routes/aboutus")
 const terms_condition = require("./routes/terms_condition")
 const contact_us = require("./routes/contact_us")
@@ -26,7 +26,7 @@ const contact_us = require("./routes/contact_us")
 //app.use("/", users);
 //app.use("/", astrologer);
 
-app.use("/", admin);
+//app.use("/", admin);
 app.use("/", aboutus);
 app.use("/", terms_condition);
 app.use("/", contact_us);
