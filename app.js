@@ -18,6 +18,7 @@ const admin = require("./routes/admin")
 const aboutus = require("./routes/aboutus")
 const terms_condition = require("./routes/terms_condition")
 const contact_us = require("./routes/contact_us")
+const banner = require("./routes/banner")
 
 
 
@@ -30,6 +31,7 @@ app.use("/", admin);
 app.use("/", aboutus);
 app.use("/", terms_condition);
 app.use("/", contact_us);
+app.use("/", banner);
 
 
 
