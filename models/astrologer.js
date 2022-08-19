@@ -39,10 +39,10 @@ const thisSchema = new Schema(
         type: String,
       },
       exp_in_years: {
-        type: Number,
+        type: String,
       },
       conrubute_hrs: {
-        type: Number,
+        type: String,
       },
       hear_abt_astrology: {
         type: String,
@@ -103,7 +103,12 @@ const thisSchema = new Schema(
       long_bio: {
         type: String,
       },
-  
+  status:{
+    type:String
+  },
+  callCharge:{
+    type:String
+  },
    
       },
       
