@@ -14,11 +14,11 @@ cloudinary.config({
   api_key: process.env.CLOUDINARY_API_KEY,
   api_secret: process.env.CLOUDINARY_API_SECRET,
 });
-
+ 
  
   
   exports.usersignup = async (req, res) => {
-    const { fullname, userimg, email, mobile, password, cnfmPassword } =
+    const { fullname, userimg, email, mobile, password, cnfmPassword ,dob} =
       req.body;
   
     const salt = await bcrypt.genSalt(10);
@@ -32,6 +32,7 @@ cloudinary.config({
       email: email,
       mobile: mobile,
       userimg: userimg,
+      dob :dob
     });
   
     const findexist = await User.findOne({

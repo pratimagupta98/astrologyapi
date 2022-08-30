@@ -21,6 +21,7 @@ const thisSchema = new Schema(
     userimg: {
       type: Array,
     },
+    dob:{type: String},
          otp: { type: String },
 
   },
