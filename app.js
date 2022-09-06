@@ -24,6 +24,7 @@ const blogs = require("./routes/blogs")
 const privacy_policy = require("./routes/privacy_policy")
 
 const notification = require("./routes/notification")
+const pridiction = require("./routes/pridiction")
 
 
  
@@ -40,6 +41,7 @@ app.use("/", faq);
 app.use("/", blogs);
 app.use("/", privacy_policy);
 app.use("/", notification);
+app.use("/", pridiction);
 
  
 
