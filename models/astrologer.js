@@ -109,6 +109,11 @@ const thisSchema = new Schema(
   callCharge:{
     type:String
   },
+   otpverify: {
+    type: String,
+    //type: String,
+   default: "false",
+  },
    
       },
       
