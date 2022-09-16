@@ -276,7 +276,7 @@ if(status){
 };
 
 exports.addAstro = async (req, res) => {
-  const { fullname, email, mobile, password, cnfmPassword, img, gender, dob, primary_skills, all_skills, language, exp_in_years, conrubute_hrs, hear_abt_astrology, other_online_platform, why_onboard_you, suitable_tym_interview, crnt_city, income_src, highest_qualification, degree_deploma, clg_scl_name, lrn_abt_astrology, insta_link, fb_link, linkedln_link, youtube_link, website_link, anybody_prefer, min_earning_expe, max_earning_expe, long_bio,callCharge } = req.body;
+  const { fullname, email,mobile, password, cnfmPassword, img, gender, dob, primary_skills, all_skills, language, exp_in_years, conrubute_hrs, hear_abt_astrology, other_online_platform, why_onboard_you, suitable_tym_interview, crnt_city, income_src, highest_qualification, degree_deploma, clg_scl_name, lrn_abt_astrology, insta_link, fb_link, linkedln_link, youtube_link, website_link, anybody_prefer, min_earning_expe, max_earning_expe, long_bio,callCharge } = req.body;
    
 
   // const salt = await bcrypt.genSalt(10);
@@ -318,7 +318,8 @@ exports.addAstro = async (req, res) => {
     anybody_prefer: anybody_prefer,
     min_earning_expe: min_earning_expe,
     max_earning_expe: max_earning_expe,
-    long_bio: long_bio
+    long_bio: long_bio,
+    callCharge:callCharge
   })
   const findexist = await Astrologer.findOne({
     $or: [{ email: email }, { mobile: mobile }],

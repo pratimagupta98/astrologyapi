@@ -9,9 +9,10 @@ const thisSchema = new Schema(
       email: {
         type: String,
       },
-       mobile:{
-        type:Number
-       },
+      mobile:{
+type:Number
+
+      },
       password: {
         type: String,
       },
