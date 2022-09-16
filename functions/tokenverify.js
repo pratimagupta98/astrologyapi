@@ -3,7 +3,7 @@ const jwt = require("jsonwebtoken");
 
 
 exports.tokenverify = async (req, res, next) => {
-  let token = req.headers["auth-adtoken"];
+  let token = req.headers["astro-token"];
 
   if (!token) {
     return res.status(403).send({ message: "No Token Provided" });

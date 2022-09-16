@@ -306,7 +306,7 @@ exports.astrologin = async (req, res) => {
     if (validPass) {
       const token = jwt.sign(
         {
-          userId: user._id,
+          astroId: user._id,
         },
         key,
         {
@@ -335,6 +335,63 @@ exports.astrologin = async (req, res) => {
     });
   }
 };
+exports.loginsendotp = async (req,res) =>{
+  const getuser = await Astrologer.findOne({ mobile: req.body.mobile });
+  if (getuser?.approvedstatus == "true") {
+    console.log("STRING",getuser)
+    res.status(200).send({
+      status: true,
+      msg: "otp Send Successfully",
+      otp: otp,
+      _id: getuser._id,
+      mobile:getuser.mobile
+    })
+   } else if(getuser?.approvedstatus == "false") {
+    res.status(200).json({
+      status: true,
+      msg: "Waiting for Admin Approval",
+    });
+  }else{
+    res.status(400).json({
+      status : false,
+      msg :"User doesn't Exist"
+    })
+  }
+};
+exports.loginVerify = async (req, res) => {
+  const { mobile, otp } = req.body;
+  const getuser = await Astrologer.findOne({ mobile: mobile })
+  if (getuser) {
+    if (otp == "123456") {
+      const token = jwt.sign(
+        {
+          astroId: getuser._id,
+        },
+        key,
+        {
+          expiresIn: "365d",
+        }
+      )
+    //.then((data)=>{ 
+      res.header("astro-token", token).status(200).send({
+        status: true,
+        msg: "otp verified",
+        otp: otp,
+        _id: getuser._id,
+        mobile:getuser.mobile,
+        token :token
+      })
+     // });
+    } else {
+      res.status(200).json({
+        status: false,
+        msg: "Incorrect Otp",
+      });
+    }
+  };
+
+}
+
 
 exports.viewoneAstro = async (req, res) => {
   await Astrologer.findOne({ _id: req.params.id })
