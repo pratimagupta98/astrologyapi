@@ -114,6 +114,11 @@ const thisSchema = new Schema(
     //type: String,
    default: "false",
   },
+  approvedstatus: {
+    type: String,
+    //type: String,
+   default: "false",
+  },
    
       },
       
