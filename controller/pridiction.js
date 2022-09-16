@@ -2,14 +2,15 @@ const Pridiction = require("../models/pridiction");
 const resp = require("../helpers/apiResponse");
 
 exports.addPridiction  = async (req, res) => {
-  const { title,rashiName,pre_type,desc,status} = req.body;
+  const { title,rashiName,pre_type,desc,status,date} = req.body;
 
   const newPridiction = new Pridiction({
     title:title,
     rashiName:rashiName,
     pre_type:pre_type,
     desc:desc,
-    status:status
+    status:status,
+    date:date
    });
   
    newPridiction

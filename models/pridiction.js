@@ -20,7 +20,9 @@ const pridictionSchema = new Schema(
       type: String,
       default:"Active"
     },
-
+date:{
+  type: String,
+},
   },
 
   { timestamps: true }
