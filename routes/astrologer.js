@@ -10,7 +10,7 @@ const {
     astrologin,
     viewoneAstro,
     allAstro,
-    editAstroDetails,
+    fillAstroDetails,
     dltAstro,
     loginsendotp,
     loginVerify
@@ -64,7 +64,7 @@ const storage = multer.diskStorage({
   router.post("/user/astrosignup", multipleUpload,astrosignup);
   router.post("/user/astrologin",astrologin);
   router.get("/user/viewoneAstro/:id",viewoneAstro);
-  router.post("/user/editAstroDetails/:id",multipleUpload,editAstroDetails);
+  router.post("/user/fillAstroDetails/:id",multipleUpload,fillAstroDetails);
 
  router.get("/admin/allAstro", allAstro);
  router.get("/admin/dltAstro/:id", dltAstro);
