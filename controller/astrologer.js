@@ -134,6 +134,7 @@ exports.loginVerify = async (req, res) => {
         _id: getuser._id,
         mobile:getuser.mobile,
         token :token
+        
       })
      // });
     } else {
@@ -142,7 +143,12 @@ exports.loginVerify = async (req, res) => {
         msg: "Incorrect Otp",
       });
     }
-  };
+  }else{
+    res.status(200).json({
+      status: false,
+      msg: "User Doesn't exist",
+    });
+  }
 
 }
 
