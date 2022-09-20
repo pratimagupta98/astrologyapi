@@ -134,7 +134,7 @@ exports.loginVerify = async (req, res) => {
         _id: getuser._id,
         mobile:getuser.mobile,
         token :token
-        
+
       })
      // });
     } else {
@@ -373,8 +373,8 @@ exports.astrodetails = async (req, res) => {
         language:getone.language,
         Exp:getone.exp_in_years,
         callCharge:getone.callCharge,
-        about_me : getone.long_bio
-
+        about_me : getone.long_bio,
+        img:getone.img
       })
      }
 };
