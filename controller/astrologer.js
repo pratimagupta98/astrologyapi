@@ -86,15 +86,18 @@ exports.verifyotp = async (req, res) => {
 
 }
 exports.loginsendotp = async (req,res) =>{
+  let length = 6;
+  let defaultotp = "123456";
   const getuser = await Astrologer.findOne({ mobile: req.body.mobile });
   if (getuser?.approvedstatus == "true") {
     console.log("STRING",getuser)
     res.status(200).send({
       status: true,
       msg: "otp Send Successfully",
-      otp: otp,
+      otp: defaultotp,
       _id: getuser._id,
-      mobile:getuser.mobile
+      mobile:getuser.mobile,
+      approvedstatus:getuser.approvedstatus
     })
    } else if(getuser?.approvedstatus == "false") {
     res.status(200).json({
@@ -108,6 +111,7 @@ exports.loginsendotp = async (req,res) =>{
     })
   }
 };
+
 exports.loginVerify = async (req, res) => {
   const { mobile, otp } = req.body;
   const getuser = await Astrologer.findOne({ mobile: mobile })
