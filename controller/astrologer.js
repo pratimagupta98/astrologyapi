@@ -394,3 +394,19 @@ exports.dltAstro = async (req, res) => {
     .then((data) => resp.deleter(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+
+exports.updteApprovedsts = async (req, res) => {
+  findone= await Astrologer.findOneAndUpdate(
+     {_id :req.params.id},
+       { $set: {approvedstatus:req.body.approvedstatus}},
+       { new: true }
+     ).then((data) => {
+ res.status(200).json({
+   status:true,
+   message :"success",
+   approvedstatus:data.approvedstatus
+ 
+ })
+       })
+       .catch((error) => resp.errorr(res, error));
+   };
