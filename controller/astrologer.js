@@ -352,6 +352,23 @@ exports.viewoneAstro = async (req, res) => {
     .then((data) => resp.successr(res, data))
     .catch((error) => resp.errorr(res, error));
 };
+exports.astrodetails = async (req, res) => {
+ const getone=  await Astrologer.findOne({ _id: req.params.id })
+     if(getone){
+      res.status(200).json({
+        status :true,
+        msg :"success",
+        Name :getone.fullname,
+        Skills:getone.all_skills,
+        language:getone.language,
+        Exp:getone.exp_in_years,
+        callCharge:getone.callCharge,
+        about_me : getone.long_bio
+
+      })
+     }
+};
+
 
 
 exports.allAstro = async (req, res) => {

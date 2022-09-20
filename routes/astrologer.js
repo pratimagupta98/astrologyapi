@@ -12,7 +12,8 @@ const {
     dltAstro,
     loginsendotp,
     loginVerify,
-    addAstro
+    addAstro,
+    astrodetails
      
    
 } = require("../controller/astrologer");
@@ -69,6 +70,7 @@ const storage = multer.diskStorage({
  router.get("/admin/dltAstro/:id", dltAstro);
  router.post("/user/loginsendotp", loginsendotp);
  router.post("/user/loginVerify",loginVerify);
+ router.get("/user/astrodetails/:id",astrodetails);
 
-  
+ 
 module.exports = router;
